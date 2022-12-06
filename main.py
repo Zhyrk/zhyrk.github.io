@@ -17,7 +17,7 @@ generation_limit = 100
 population_size = 70
 
 
-def generate_outfit(city, fashion = fashion_default, temperature = 0):
+async def generate_outfit(city, fashion = fashion_default, temperature = 0):
     coords = await get_city_coord(city)
     temperature = await get_today_temperature(coords)
     
