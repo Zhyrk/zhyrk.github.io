@@ -71,6 +71,9 @@ async def generate_outfit(city, fashion = fashion_default, temperature = 0):
 #pyscript.write('request_text', res)
 
 function_proxy = create_proxy(generate_outfit)
+document.getElementById("btnGenera").addEventListener("click", function_proxy)
+
+            
 
 
  
