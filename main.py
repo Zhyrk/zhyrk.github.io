@@ -1,6 +1,10 @@
 import asyncio
 from functools import partial
 import json
+
+from js import document 
+from pyodide import create_proxy
+
 # const
 max_temperature = 30
 min_temperature = -10
@@ -12,7 +16,11 @@ fashion_default = 7
 generation_limit = 100
 population_size = 70
 
+
 def generate_outfit(city, fashion = fashion_default, temperature = 0):
+    coords = await get_city_coord(city)
+    temperature = await get_today_temperature(coords)
+    
     cold_level = (temperature - max_temperature) / (min_temperature - max_temperature)
     cold_level = abs(cold_level * 9) + 1
     max_warmness = round(cold_level * len(body_parts), 0)
@@ -57,9 +65,12 @@ def generate_outfit(city, fashion = fashion_default, temperature = 0):
     return 'Errore'
     
 
-coords = await get_city_coord('Trieste')
-temperature = await get_today_temperature(coords)
-res = generate_outfit("Trieste", 7, temperature)
-pyscript.write('request_text', res)
+#coords = await get_city_coord('Trieste')
+#temperature = await get_today_temperature(coords)
+#res = generate_outfit("Trieste", 7, temperature)
+#pyscript.write('request_text', res)
+
+function_proxy = create_proxy(runPython)
+
 
  
