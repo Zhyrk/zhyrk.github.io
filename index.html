@@ -1,1 +1,39 @@
-Hello world!
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="manifest" href="manifest.webmanifest" />
+        <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+        <meta name="theme-color" content="#db4938" />
+
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <style>
+            h1 {
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="request_status"></div>
+        <div id="request_text"></div>
+        <py-env>
+            - numpy
+        </py-env>
+        <py-script src="vestiti.py"></py-script>
+        <py-script src="api_calls.py"></py-script>
+        <py-script src="genetic_algorithm.py"></py-script>
+        <py-script src="main.py"></py-script>
+        <script>
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", function() {
+                    navigator.serviceWorker
+                    .register("service_worker.js")
+                    .then(res => console.log("service worker registered"))
+                    .catch(err => console.log("service worker not registered", err))
+                })
+            }
+        </script>
+    </body>
+</html>
