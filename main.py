@@ -70,7 +70,7 @@ def generate_outfit(city, fashion = fashion_default, temperature = 0):
 #res = generate_outfit("Trieste", 7, temperature)
 #pyscript.write('request_text', res)
 
-function_proxy = create_proxy(runPython)
+function_proxy = create_proxy(generate_outfit)
 
 
  
