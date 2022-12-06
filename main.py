@@ -18,8 +18,7 @@ population_size = 70
 
 
 async def generate_outfit(city, fashion = fashion_default, temperature = 0):
-    if city == "":
-        city = document.getElementById("citta").innerText
+    city = document.getElementById("citta").innerText
     coords = await get_city_coord(city)
     temperature = await get_today_temperature(coords)
     
