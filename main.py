@@ -62,7 +62,7 @@ async def generate_outfit(city, fashion):
             return result
         except ValueError:
             print("ValueError: items pool error")
-    return 'Errore'
+    return '{"Errore": "item pool error"}'
     
 
 async def main(pointer):
@@ -72,12 +72,11 @@ async def main(pointer):
     if fashion == "": fashion = fashion_default
     result = await generate_outfit(city, fashion)
 
-    json_result = json.loads(result)
-    outfit = json_result["outfit"]
+    outfit = result["outfit"]
     text = ""
-    for i, el in enumerate(outfit):
-        text += f"{i}: {el}\n\r"
-    Element("result").element.innerText = text
+    for i, el in outfit.items():
+        text += f"<b>{i}:</b> {el}<br>"
+    Element("result").element.innerHTML = text
 
 function_proxy = create_proxy(main)
 document.getElementById("btnGenera").addEventListener("click", function_proxy)
