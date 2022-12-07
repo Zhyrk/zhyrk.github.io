@@ -17,11 +17,7 @@ generation_limit = 100
 population_size = 70
 
 
-async def generate_outfit(pointer):
-    city = Element('city').element.value
-    fashion = int(Element('fashion').element.value)
-    if city == "": raise "Manca la città"
-    if fashion == "": fashion = fashion_default
+async def generate_outfit(city, fashion):
     coords = await get_city_coord(city)
     temperature = await get_today_temperature(coords)
     
@@ -69,12 +65,15 @@ async def generate_outfit(pointer):
     return 'Errore'
     
 
-#coords = await get_city_coord('Trieste')
-#temperature = await get_today_temperature(coords)
-#res = generate_outfit("Trieste", 7, temperature)
-#pyscript.write('request_text', res)
+async def main(pointer):
+    city = Element('city').element.value
+    fashion = int(Element('fashion').element.value)
+    if city == "": raise "Manca la città"
+    if fashion == "": fashion = fashion_default
+    result = await generate_outfit(city, fashion)
+    Element("result").element.innerText = result
 
-function_proxy = create_proxy(generate_outfit)
+function_proxy = create_proxy(main)
 document.getElementById("btnGenera").addEventListener("click", function_proxy)
 
             
