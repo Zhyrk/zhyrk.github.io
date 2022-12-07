@@ -71,7 +71,13 @@ async def main(pointer):
     if city == "": raise "Manca la città"
     if fashion == "": fashion = fashion_default
     result = await generate_outfit(city, fashion)
-    Element("result").element.innerText = result
+
+    json_result = json.loads(result)
+    outfit = json_result["outfit"]
+    text = ""
+    for i, el in enumerate(outfit):
+        text += f"{i}: {el}\n\r"
+    Element("result").element.innerText = text
 
 function_proxy = create_proxy(main)
 document.getElementById("btnGenera").addEventListener("click", function_proxy)
