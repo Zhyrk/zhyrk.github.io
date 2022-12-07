@@ -17,7 +17,7 @@ generation_limit = 100
 population_size = 70
 
 
-async def generate_outfit():
+async def generate_outfit(pointer):
     city = Element('city').element.value
     fashion = int(Element('fashion').element.value)
     if city == "": raise "Manca la città"
