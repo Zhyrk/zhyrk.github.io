@@ -3,7 +3,7 @@ from functools import partial
 import json
 
 from js import document 
-from pyodide import create_proxy
+from pyodide.ffi import create_proxy
 
 # const
 max_temperature = 30
@@ -17,8 +17,11 @@ generation_limit = 100
 population_size = 70
 
 
-async def generate_outfit(city, fashion = fashion_default, temperature = 0):
-    city = Element('citta').element.value
+async def generate_outfit():
+    city = Element('city').element.value
+    fashion = int(Element('fashion').element.value)
+    if city == "": raise "Manca la città"
+    if fashion == "": fashion = fashion_default
     coords = await get_city_coord(city)
     temperature = await get_today_temperature(coords)
     
